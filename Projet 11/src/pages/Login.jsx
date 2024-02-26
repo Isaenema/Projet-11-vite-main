@@ -1,10 +1,10 @@
 import React from "react";
-import LoginModal from "../components/Loginmodal";
+import Loginform from "../components/Loginform";
 
 const Login = () => {
   return (
     <main className="main bg-dark">
-      <LoginModal />
+      <Loginform />
     </main>
   );
 };
