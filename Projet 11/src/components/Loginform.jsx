@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { useNavigate } from "react-router-dom"; // Importez useNavigate
+import { useNavigate } from "react-router-dom";
 import { loginSuccess } from "../Redux/AuthSlice";
 
 function LoginForm({ loginSuccess }) {
@@ -9,7 +9,7 @@ function LoginForm({ loginSuccess }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const navigate = useNavigate(); // Utilisez useNavigate
+  const navigate = useNavigate();
 
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
@@ -25,8 +25,8 @@ function LoginForm({ loginSuccess }) {
         const { token } = response.data.body;
         if (token) {
           localStorage.setItem("token", token);
-          loginSuccess(); // Dispatch l'action de succès de connexion
-          navigate("/user"); // Redirigez vers '/user'
+          loginSuccess();
+          navigate("/user");
         }
       }
     } catch (error) {
