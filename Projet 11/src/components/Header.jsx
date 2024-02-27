@@ -1,8 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import { loginSuccess, logoutSuccess } from "../Redux/AuthSlice"; // Importez vos actions
+import { logoutSuccess } from "../Redux/AuthSlice";
 
-const Header = ({ isAuthenticated, loginSuccess, logoutSuccess }) => {
+const Header = ({ isAuthenticated, logoutSuccess }) => {
+  const handleSignOut = () => {
+    logoutSuccess();
+
+    localStorage.removeItem("token");
+  };
+
   return (
     <header>
       <nav class="main-nav">
@@ -15,19 +21,16 @@ const Header = ({ isAuthenticated, loginSuccess, logoutSuccess }) => {
           <h1 class="sr-only">Argent Bank</h1>
         </a>
         <div>
+          <i class="fa fa-user-circle"></i>
           {isAuthenticated ? (
-            <button class="main-nav-item" href="/" onClick={logoutSuccess}>
+            <button className="main-nav-item" href="/" onClick={handleSignOut}>
               Sign Out
             </button>
           ) : (
-            <button class="main-nav-item" href="/login" onClick={loginSuccess}>
+            <a className="main-nav-item" href="/login">
               Sign In
-            </button>
+            </a>
           )}
-          {/* <a class="main-nav-item" href="/login">
-            <i class="fa fa-user-circle"></i>
-            Sign In
-          </a> */}
         </div>
       </nav>
     </header>
@@ -35,11 +38,10 @@ const Header = ({ isAuthenticated, loginSuccess, logoutSuccess }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.isAuthenticated,
+  isAuthenticated: state.auth.isAuthenticated, // Accédez à l'état d'authentification à partir du slice
 });
 
 const mapDispatchToProps = {
-  loginSuccess,
   logoutSuccess,
 };
 

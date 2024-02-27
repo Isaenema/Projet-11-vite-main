@@ -1,54 +1,39 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { loginSuccess } from "../Redux/AuthSlice"; // Importez vos actions
+import { useNavigate } from "react-router-dom"; // Importez useNavigate
+import { loginSuccess } from "../Redux/AuthSlice";
 
-function LoginForm() {
+function LoginForm({ loginSuccess }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false); // État pour suivre l'état de connexion
 
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  const navigate = useNavigate(); // Utilisez useNavigate
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
-  };
-  const LoginForm = ({ loginSuccess }) => {
-    const handleSubmit = async (e) => {
-      e.preventDefault();
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
-      try {
-        const response = await axios.post(
-          "http://localhost:3001/api/v1/user/login",
-          {
-            email,
-            password,
-          }
-        );
-
-        if (response.status === 200) {
-          // Remplacer par la structure réelle de votre réponse où le token est situé
-          const { token } = response.data.body;
-          if (token) {
-            localStorage.setItem("token", token);
-            setLoggedIn(true); // Stocker le token dans le localStorage
-          }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/api/v1/user/login",
+        { email, password }
+      );
+      if (response.status === 200) {
+        const { token } = response.data.body;
+        if (token) {
+          localStorage.setItem("token", token);
+          loginSuccess(); // Dispatch l'action de succès de connexion
+          navigate("/user"); // Redirigez vers '/user'
         }
-      } catch (error) {
-        // Une erreur s'est produite lors de la requête
-        console.error("Erreur lors de la connexion :", error.message);
-        setError("Une erreur est survenue lors de la connexion.");
       }
-      loginSuccess(); // Dispatch de l'action de connexion réussie
-    };
+    } catch (error) {
+      console.error("Erreur lors de la connexion :", error.message);
+      setError("Une erreur est survenue lors de la connexion.");
+    }
   };
-
-  if (loggedIn) {
-    return <Redirect to="/user" />;
-  }
 
   return (
     <section class="sign-in-content">
