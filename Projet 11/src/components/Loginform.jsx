@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { connect } from "react-redux";
+import { loginSuccess } from "../Redux/AuthSlice"; // Importez vos actions
 
 function LoginForm() {
   const [email, setEmail] = useState("");
@@ -14,32 +16,34 @@ function LoginForm() {
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
+  const LoginForm = ({ loginSuccess }) => {
+    const handleSubmit = async (e) => {
+      e.preventDefault();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+      try {
+        const response = await axios.post(
+          "http://localhost:3001/api/v1/user/login",
+          {
+            email,
+            password,
+          }
+        );
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/api/v1/user/login",
-        {
-          email,
-          password,
+        if (response.status === 200) {
+          // Remplacer par la structure réelle de votre réponse où le token est situé
+          const { token } = response.data.body;
+          if (token) {
+            localStorage.setItem("token", token);
+            setLoggedIn(true); // Stocker le token dans le localStorage
+          }
         }
-      );
-
-      if (response.status === 200) {
-        // Remplacer par la structure réelle de votre réponse où le token est situé
-        const { token } = response.data.body;
-        if (token) {
-          localStorage.setItem("token", token);
-          setLoggedIn(true); // Stocker le token dans le localStorage
-        }
+      } catch (error) {
+        // Une erreur s'est produite lors de la requête
+        console.error("Erreur lors de la connexion :", error.message);
+        setError("Une erreur est survenue lors de la connexion.");
       }
-    } catch (error) {
-      // Une erreur s'est produite lors de la requête
-      console.error("Erreur lors de la connexion :", error.message);
-      setError("Une erreur est survenue lors de la connexion.");
-    }
+      loginSuccess(); // Dispatch de l'action de connexion réussie
+    };
   };
 
   if (loggedIn) {
@@ -83,4 +87,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default connect(null, { loginSuccess })(LoginForm);

@@ -1,6 +1,8 @@
 import React from "react";
+import { connect } from "react-redux";
+import { loginSuccess, logoutSuccess } from "../Redux/AuthSlice"; // Importez vos actions
 
-const Header = () => {
+const Header = ({ isAuthenticated, loginSuccess, logoutSuccess }) => {
   return (
     <header>
       <nav class="main-nav">
@@ -13,14 +15,32 @@ const Header = () => {
           <h1 class="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <a class="main-nav-item" href="/login">
+          {isAuthenticated ? (
+            <button class="main-nav-item" href="/" onClick={logoutSuccess}>
+              Sign Out
+            </button>
+          ) : (
+            <button class="main-nav-item" href="/login" onClick={loginSuccess}>
+              Sign In
+            </button>
+          )}
+          {/* <a class="main-nav-item" href="/login">
             <i class="fa fa-user-circle"></i>
             Sign In
-          </a>
+          </a> */}
         </div>
       </nav>
     </header>
   );
 };
 
-export default Header;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.isAuthenticated,
+});
+
+const mapDispatchToProps = {
+  loginSuccess,
+  logoutSuccess,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
