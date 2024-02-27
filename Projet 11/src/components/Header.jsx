@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { logoutSuccess } from "../Redux/AuthSlice";
+import { Link } from "react-router-dom";
 
 const Header = ({ isAuthenticated, logoutSuccess }) => {
   const handleSignOut = () => {
@@ -23,13 +24,13 @@ const Header = ({ isAuthenticated, logoutSuccess }) => {
         <div>
           <i class="fa fa-user-circle"></i>
           {isAuthenticated ? (
-            <button className="main-nav-item" href="/" onClick={handleSignOut}>
+            <Link to="/" className="main-nav-item" onClick={handleSignOut}>
               Sign Out
-            </button>
+            </Link>
           ) : (
-            <a className="main-nav-item" href="/login">
+            <Link to="/login" className="main-nav-item">
               Sign In
-            </a>
+            </Link>
           )}
         </div>
       </nav>

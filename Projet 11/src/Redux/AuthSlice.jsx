@@ -17,8 +17,6 @@ const authSlice = createSlice({
   },
 });
 
-// Exporte les actions générées par createSlice
 export const { loginSuccess, logoutSuccess } = authSlice.actions;
 
-// Exporte le reducer généré par createSlice
 export default authSlice.reducer;
