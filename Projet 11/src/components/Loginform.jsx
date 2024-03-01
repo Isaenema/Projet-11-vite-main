@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { loginSuccess } from "../Redux/AuthSlice";
+// import { loginSuccess } from "../Redux/AuthSlice";
+// import { loginUser } from "../Redux/UserSlice";
 
-function LoginForm({ loginSuccess }) {
+// { loginSuccess, loginUser }
+function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -23,9 +25,11 @@ function LoginForm({ loginSuccess }) {
       );
       if (response.status === 200) {
         const { token } = response.data.body;
+        console.log(response.data);
         if (token) {
           localStorage.setItem("token", token);
-          loginSuccess();
+          // loginSuccess();
+          // loginUser(response.data.body);
           navigate("/user");
         }
       }
@@ -72,4 +76,5 @@ function LoginForm({ loginSuccess }) {
   );
 }
 
-export default connect(null, { loginSuccess })(LoginForm);
+export default connect()(LoginForm);
+// null, { loginSuccess, loginUser }

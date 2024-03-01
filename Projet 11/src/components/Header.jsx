@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { logoutSuccess } from "../Redux/AuthSlice";
+// import { logoutSuccess } from "../Redux/AuthSlice";
 import { Link } from "react-router-dom";
 
 const Header = ({ isAuthenticated, logoutSuccess }) => {
@@ -39,11 +39,12 @@ const Header = ({ isAuthenticated, logoutSuccess }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated, // Accédez à l'état d'authentification à partir du slice
+  isAuthenticated: state.auth.isAuthenticated,
 });
 
-const mapDispatchToProps = {
-  logoutSuccess,
-};
+// const mapDispatchToProps = {
+//   logoutSuccess,
+// };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect()(Header);
+// mapStateToProps, mapDispatchToProps

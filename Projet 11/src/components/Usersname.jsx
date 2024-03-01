@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Usersname = () => {
-  const user = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user);
 
   const userName = `${user.firstName} ${user.lastName}`;
 
