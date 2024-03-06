@@ -8,11 +8,13 @@ import store from "./store/index.js";
 import { UserProvider } from "./context/SignContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
-    <UserProvider>
-      <Provider store={store}>
-        <App />
-      </Provider>
-    </UserProvider>
-  </BrowserRouter>
+  <React.StrictMode>
+    <BrowserRouter>
+      <UserProvider>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </UserProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 );

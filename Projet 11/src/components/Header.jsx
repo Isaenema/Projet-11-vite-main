@@ -1,31 +1,33 @@
-import React from "react";
-import { connect } from "react-redux";
-// import { logoutSuccess } from "../Redux/AuthSlice";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import UserContext from "../context/SignContext";
+import { useSelector } from "react-redux";
 
-const Header = ({ isAuthenticated, logoutSuccess }) => {
+const Header = () => {
+  const { logged, signOut } = useContext(UserContext);
+  const userData = useSelector((state) => state.userInfo);
+  console.log(userData);
+
   const handleSignOut = () => {
-    logoutSuccess();
-
-    localStorage.removeItem("token");
+    signOut();
   };
 
   return (
     <header>
-      <nav class="main-nav">
-        <a class="main-nav-logo" href="/">
+      <nav className="main-nav">
+        <a className="main-nav-logo" href="/">
           <img
-            class="main-nav-logo-image"
+            className="main-nav-logo-image"
             src="../src/assets/img/argentBankLogo.png"
             alt="Argent Bank Logo"
           />
-          <h1 class="sr-only">Argent Bank</h1>
+          <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <i class="fa fa-user-circle"></i>
-          {isAuthenticated ? (
+          <i className="fa fa-user-circle"></i>
+          {logged ? (
             <Link to="/" className="main-nav-item" onClick={handleSignOut}>
-              Sign Out
+              Sign Out {userData?.userName}
             </Link>
           ) : (
             <Link to="/login" className="main-nav-item">
@@ -38,13 +40,4 @@ const Header = ({ isAuthenticated, logoutSuccess }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-// const mapDispatchToProps = {
-//   logoutSuccess,
-// };
-
-export default connect()(Header);
-// mapStateToProps, mapDispatchToProps
+export default Header;

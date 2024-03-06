@@ -3,10 +3,10 @@ import { createContext, useState } from "react";
 const UserContext = createContext();
 
 export function UserProvider({ children }) {
-  let myToken = localStorage.getItem("myToken");
+  let myToken = localStorage.getItem("token");
 
   const [logged, setLogged] = useState(myToken ? true : false);
-
+  console.log(logged);
   const togglelog = () => {
     if (myToken) {
       setLogged(logged ? false : true);
@@ -16,7 +16,7 @@ export function UserProvider({ children }) {
   };
 
   const signOut = () => {
-    localStorage.removeItem("myToken");
+    localStorage.removeItem("token");
     window.location.reload(true);
   };
 

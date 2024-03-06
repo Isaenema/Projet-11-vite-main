@@ -1,17 +1,17 @@
 import axios from "axios";
 
 export const GET_USERINFO = "GET_USERINFO";
-export const EDIT_USERNAME = "EDIT_USERNAME";
+export const EDIT_USERINFO = "EDIT_USERINFO";
 
 export const getUserInfo = () => async (dispatch) => {
-  if (localStorage.getItem("myToken")) {
+  if (localStorage.getItem("token")) {
     try {
       const res = await axios({
         method: "POST",
         url: "http://localhost:3001/api/v1/user/profile",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("myToken")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
 
@@ -25,3 +25,5 @@ export const getUserInfo = () => async (dispatch) => {
     }
   }
 };
+
+// refaire route axios
