@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 const User = () => {
   const userData = useSelector((state) => state.userInfo);
+
   return (
     <main className="main bg-dark">
       <Usersname userData={userData} />
