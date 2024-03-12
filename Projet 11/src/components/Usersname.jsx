@@ -7,7 +7,7 @@ const Usersname = ({ userData }) => {
 
   const [toggleEditUserName, setToggleEditUserName] = useState(false);
 
-  const handeEditUserName = () => {
+  const handleEditUserName = () => {
     setToggleEditUserName(!toggleEditUserName);
   };
 
@@ -20,9 +20,9 @@ const Usersname = ({ userData }) => {
           <h1>
             Welcome back
             <br />
-            {userName}!
+            {userData?.userName}!
           </h1>
-          <button className="edit-button" onClick={handeEditUserName}>
+          <button className="edit-button" onClick={handleEditUserName}>
             Edit Name
           </button>
         </div>

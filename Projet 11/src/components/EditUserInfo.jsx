@@ -1,34 +1,30 @@
-// import { useState } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { editUserInfo } from "../actions/UserActions";
-import "./EditUserInfo.css";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editUserInfo } from "../actions/UserActions";
 
-// export default function EditUserName(props) {
-//   const dispatch = useDispatch();
+export default function EditUserName(props) {
+  const dispatch = useDispatch();
 
-//   const userName = useSelector((state) => state.user.user.userName);
-//   //   const firstName = useSelector((state) => state.user.user.firstName);
-//   //   const lastName = useSelector((state) => state.user.user.lastName);
-//   //   const token = useSelector((state) => state.user.token);
+  const token = localStorage.getItem("token");
+  const userData = useSelector((state) => state.userInfo);
 
-//   const [newUserName, setNewUserName] = useState(userName);
+  const [newUserName, setNewUserName] = useState(userData?.userName || "");
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-//     if (newUserName === "") {
-//       alert("please fill in the 'User name' field.");
-//     } else {
-//       try {
-//         await dispatch(editUserInfo(token, newUserName));
-//       } catch (error) {
-//         console.error("Error updating username:", error);
-//         alert("Error updating username. Please try again.");
-//       }
-//     }
-//   };
-
-const editUserInfo = () => {
+    if (newUserName === "") {
+      alert("please fill in the 'User name' field.");
+    } else {
+      console.log("new user name?", newUserName);
+      try {
+        await dispatch(editUserInfo(newUserName));
+      } catch (error) {
+        console.error("Error updating username:", error);
+        alert("Error updating username. Please try again.");
+      }
+    }
+  };
   return (
     <div className="editUserName">
       <h1 className="editUserName__title">Edit user info</h1>
@@ -38,9 +34,9 @@ const editUserInfo = () => {
           <input
             type="text"
             id="userName"
-            // value={newUserName}
+            value={newUserName}
             autoComplete="true"
-            // onChange={(e) => setNewUserName(e.target.value)}
+            onChange={(e) => setNewUserName(e.target.value)}
           />
         </div>
         <div className="editUserName__form__inputWrapper">
@@ -48,7 +44,7 @@ const editUserInfo = () => {
           <input
             type="text"
             id="firstName"
-            // value={firstName}
+            value={userData?.firstName}
             autoComplete="true"
             readOnly
             className="editUserName__form__inputWrapper--readOnly"
@@ -59,7 +55,7 @@ const editUserInfo = () => {
           <input
             type="text"
             id="lastName"
-            // value={lastName}
+            value={userData?.lastName}
             autoComplete="true"
             readOnly
             className="editUserName__form__inputWrapper--readOnly"
@@ -69,14 +65,14 @@ const editUserInfo = () => {
           <button
             type="submit"
             className="editUserName__form__button__content"
-            // onClick={handleSubmit}
+            onClick={handleSubmit}
           >
             Save
           </button>
           <button
             type="button"
             className="editUserName__form__button__content"
-            // onClick={() => props.setToggleEditUserName(false)}
+            onClick={() => props.setToggleEditUserName(false)}
           >
             Cancel
           </button>
@@ -84,6 +80,4 @@ const editUserInfo = () => {
       </form>
     </div>
   );
-};
-
-export default editUserInfo;
+}

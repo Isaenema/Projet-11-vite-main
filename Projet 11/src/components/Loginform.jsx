@@ -35,12 +35,12 @@ function LoginForm() {
   };
 
   return (
-    <section class="sign-in-content">
-      <i class="fa fa-user-circle sign-in-icon"></i>
+    <section className="sign-in-content">
+      <i className="fa fa-user-circle sign-in-icon"></i>
       <h1>Sign In</h1>
       <form onSubmit={handleSubmit}>
-        <div class="input-wrapper">
-          <label for="username">Username</label>
+        <div className="input-wrapper">
+          <label htmlFor="username">Username</label>
           <input
             type="email"
             id="username"
@@ -48,8 +48,8 @@ function LoginForm() {
             onChange={handleEmailChange}
           />
         </div>
-        <div class="input-wrapper">
-          <label for="password">Password</label>
+        <div className="input-wrapper">
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -57,9 +57,9 @@ function LoginForm() {
             onChange={handlePasswordChange}
           />
         </div>
-        <div class="input-remember">
+        <div className="input-remember">
           <input type="checkbox" id="remember-me" />
-          <label for="remember-me">Remember me</label>
+          <label htmlFor="remember-me">Remember me</label>
         </div>
 
         <button type="submit" className="sign-in-button">

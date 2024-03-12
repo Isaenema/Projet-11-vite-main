@@ -26,15 +26,18 @@ export const getUserInfo = () => async (dispatch) => {
   }
 };
 
-export const editUserInfo = () => async (dispatch) => {
+export const editUserInfo = (newUserName) => async (dispatch) => {
   if (localStorage.getItem("token")) {
     try {
       const res = await axios({
         method: "PUT",
         url: "http://localhost:3001/api/v1/user/profile",
-        header: {
+        headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        data: {
+          userName: newUserName,
         },
       });
 
@@ -48,16 +51,3 @@ export const editUserInfo = () => async (dispatch) => {
     }
   }
 };
-
-//     if (response.status === 200) {
-//       const { firstName, lastName, email } = response.data.body;
-
-//       dispatch(setUser({ firstName, lastName, email, userName: newUserName }));
-//     } else {
-//       throw new Error("Unexpected response status");
-//     }
-//   } catch (error) {
-//     handleErrors(error);
-//   }
-// };
-// refaire route axios
