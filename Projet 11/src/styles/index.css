@@ -74,7 +74,7 @@ body {
 }
 
 .hero {
-  background-image: url("../src/assets/img/bank-tree.jpeg");
+  background-image: url("../src/assets/img/bank-tree.webp");
   background-position: 0 -50px;
   background-size: cover;
   background-repeat: no-repeat;
@@ -277,6 +277,10 @@ body {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+}
+
+.sign-in-content p {
+  color: red;
 }
 
 @media (min-width: 720px) {

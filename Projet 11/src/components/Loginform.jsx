@@ -30,7 +30,9 @@ function LoginForm() {
       }
     } catch (error) {
       console.error("Erreur lors de la connexion :", error.message);
-      setError("Une erreur est survenue lors de la connexion.");
+      setError(
+        "Merci de verifier votre email ou votre mot de passe afin de vous connecter."
+      );
     }
   };
 

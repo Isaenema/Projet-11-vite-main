@@ -14,14 +14,14 @@ export default function EditUserName(props) {
     e.preventDefault();
 
     if (newUserName === "") {
-      alert("please fill in the 'User name' field.");
+      alert("Merci de remplir le champs Username.");
     } else {
       console.log("new user name?", newUserName);
       try {
         await dispatch(editUserInfo(newUserName));
       } catch (error) {
-        console.error("Error updating username:", error);
-        alert("Error updating username. Please try again.");
+        console.error("Erreur lors de la mise à jour:", error);
+        alert("Erreur lors de la mise à jour. Veillez rééssayer.");
       }
     }
   };
@@ -30,7 +30,7 @@ export default function EditUserName(props) {
       <h1 className="editUserName__title">Edit user info</h1>
       <form className="editUserName__form">
         <div className="editUserName__form__inputWrapper">
-          <label htmlFor="userName">User name:</label>
+          <label htmlFor="userName">Username:</label>
           <input
             type="text"
             id="userName"
