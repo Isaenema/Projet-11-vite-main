@@ -10,6 +10,7 @@ const Header = () => {
 
   const handleSignOut = () => {
     signOut();
+    window.location = "/";
   };
 
   return (
@@ -26,9 +27,9 @@ const Header = () => {
         <div>
           <i className="fa fa-user-circle"></i>
           {logged ? (
-            <Link to="/" className="main-nav-item" onClick={handleSignOut}>
+            <div className="main-nav-item" onClick={handleSignOut}>
               Sign Out {userData?.userName}
-            </Link>
+            </div>
           ) : (
             <Link to="/login" className="main-nav-item">
               Sign In
